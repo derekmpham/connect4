@@ -22,7 +22,9 @@ Initial Webpage where gameboard is initialized
 
 @app.route('/', methods=['GET'])
 def player1_connect():
-    pass
+    global game
+    game = Gameboard()
+    return render_template('player1_connect.html', status='Pick a Color.')
 
 
 '''
@@ -49,7 +51,10 @@ Assign player1 their color
 
 @app.route('/p1Color', methods=['GET'])
 def player1_config():
-    pass
+    color = request.args.get('color')
+    global game
+    game.player1 = color
+    return render_template('player1_connect.html', status=color)
 
 
 '''
@@ -64,7 +69,16 @@ Assign player2 their color
 
 @app.route('/p2Join', methods=['GET'])
 def p2Join():
-    pass
+    global game
+    color = ""
+    if game.player1 == "red":
+        color = "yellow"
+    elif game.player1 == "yellow":
+        color = "red"
+    else:
+        color = "Error"
+    game.player2 = color
+    return render_template('p2Join.html', status=color)
 
 
 '''
