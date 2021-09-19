@@ -26,6 +26,50 @@ class Gameboard():
 
         return (is_invalid, err_message)
 
+    def add_move(self, col, pcolor):
+        i = int(col[-1]) - 1
+        for r in reversed(range(len(self.board))):
+            if self.board[r][i] == 0:
+                self.board[r][i] = pcolor
+                self.remaining_moves -= 1
+                return (r, i)
+
+    def check_winner(self, pos):
+        r, c = pos[0], pos[1]
+        pcolor = self.board[r][c]
+
+        # Check horizontally
+        for i in range(len(self.board[r])-3):
+            if self.board[r][i] == pcolor and self.board[r][i+1] == pcolor and self.board[r][i+2] == pcolor and self.board[r][i+3] == pcolor:
+                self.game_result = self.current_turn
+                return
+
+        # Check vertically
+        for i in range(len(self.board)-3):
+            if self.board[i][c] == pcolor and self.board[i+1][c] == pcolor and self.board[i+2][c] == pcolor and self.board[i+3][c] == pcolor:
+                self.game_result = self.current_turn
+                return
+
+        # Check left diagonal
+        for i in range(len(self.board[r])-3):
+            for j in range(len(self.board)-3):
+                if self.board[i][j] == pcolor and self.board[i+1][j+1] == pcolor and self.board[i+2][j+2] == pcolor and self.board[i+3][j+3] == pcolor:
+                    self.game_result = self.current_turn
+                    return
+
+        # Check right diagonal
+        for i in range(len(self.board[r])-3):
+            for j in range(3, len(self.board)):
+                if self.board[i][j] == pcolor and self.board[i+1][j-1] == pcolor and self.board[i+2][j-2] == pcolor and self.board[i+3][j-3] == pcolor:
+                    self.game_result = self.current_turn
+                    return
+
+    def switch_turn(self):
+        if self.current_turn == 'p1':
+            self.current_turn = 'p2'
+        else:
+            self.current_turn = 'p1'
+
 
     
 
