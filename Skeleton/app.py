@@ -97,6 +97,8 @@ Process Player 1's move
 def p1_move():
     m1 = request.get_json()
     global game
+    if len(game.game_result) > 0:
+        return
     valid_status = game.validate_move(m1['column'], 'p1')
     is_invalid = valid_status[0]
     if is_invalid:
@@ -117,6 +119,8 @@ Same as '/move1' but instead proccess Player 2
 def p2_move():
     m2 = request.get_json()
     global game
+    if len(game.game_result) > 0:
+        return
     valid_status = game.validate_move(m2['column'], 'p2')
     is_invalid = valid_status[0]
     if is_invalid:
