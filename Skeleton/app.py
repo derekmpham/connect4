@@ -99,7 +99,7 @@ def p1_move():
     global game
     valid_status = game.validate_move(m1['column'], 'p1')
     is_invalid = valid_status[0]
-    if is_invalid == True:
+    if is_invalid:
         return jsonify(move=game.board, invalid=is_invalid, reason=valid_status[1], winner=game.game_result)
     else:
         added_pos = game.add_move(m1['column'], game.player1)
@@ -115,7 +115,17 @@ Same as '/move1' but instead proccess Player 2
 
 @app.route('/move2', methods=['POST'])
 def p2_move():
-    pass
+    m2 = request.get_json()
+    global game
+    valid_status = game.validate_move(m2['column'], 'p2')
+    is_invalid = valid_status[0]
+    if is_invalid:
+        return jsonify(move=game.board, invalid=is_invalid, reason=valid_status[1], winner=game.game_result)
+    else:
+        added_pos = game.add_move(m2['column'], game.player2)
+        game.check_winner(added_pos)
+        game.switch_turn()
+        return jsonify(move=game.board, invalid=is_invalid, winner=game.game_result)
 
 
 
