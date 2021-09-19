@@ -95,7 +95,15 @@ Process Player 1's move
 
 @app.route('/move1', methods=['POST'])
 def p1_move():
-    pass
+    m1 = request.get_json()
+    global game
+    valid_status = game.validate_move(m1['column'], 'p1')
+    is_invalid = valid_status[0]
+    if is_invalid == True:
+        return jsonify(move=game, invalid=is_invalid, reason=valid_status[1], winner=game.game_result)
+    else:
+        print("TODO")
+    
 
 '''
 Same as '/move1' but instead proccess Player 2
