@@ -160,7 +160,7 @@ class Test_TestGameboard(unittest.TestCase):
         moves = ['col1']*6
 
         while len(moves) > 0:
-            m = moves.pop()
+            m = moves.pop(0)
 
             pcolor = ""
             if game.current_turn == 'p1':
@@ -179,7 +179,26 @@ class Test_TestGameboard(unittest.TestCase):
 
     def test_winning_move_horizontal(self):
         # Checks if there is a winning move in horizontal direction
-        self.assertEqual("TODO", "TODO")
+        game = Gameboard()
+        game.player1 = "red"
+        game.player2 = "yellow"
+
+        moves = ['col1', 'col1', 'col2', 'col2', 'col3', 'col3', 'col4']
+        while len(game.game_result) == 0:
+            m = moves.pop(0)
+            pcolor = ""
+            if game.current_turn == 'p1':
+                pcolor = game.player1
+            else:
+                pcolor = game.player2
+            p_valid_status = game.validate_move(m, game.current_turn)
+            self.assertFalse(p_valid_status[0])
+            
+            added_pos = game.add_move(m, pcolor)
+            game.check_winner(added_pos)
+            game.switch_turn()
+
+        self.assertEqual(game.game_result, 'p1')
 
     def test_winning_move_vertical(self):
         # Checks if there is a winning move in vertical direction
