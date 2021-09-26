@@ -120,6 +120,37 @@ class Test_TestGameboard(unittest.TestCase):
         game.switch_turn()
         p1_valid_status = game.validate_move(p1_m, 'p1')
         self.assertEqual(p1_valid_status[1], "Winner already declared")
+
+    def test_invalid_tie(self):
+        # Checks that player cannot make move when tie is declared
+        game = Gameboard()
+        game.player1 = "red"
+        game.player2 = "yellow"
+        moves = ['col1', 'col2', 'col3', 'col4', 'col5', 'col6', 'col7',
+                'col2', 'col1', 'col1', 'col2', 'col2', 'col1', 'col1',
+                'col2', 'col1', 'col2', 'col6', 'col3', 'col3', 'col3',
+                'col3', 'col4', 'col4', 'col4', 'col4', 'col5', 'col5',
+                'col5', 'col5', 'col4', 'col3', 'col7', 'col7', 'col7',
+                'col7', 'col6', 'col6', 'col6', 'col7', 'col6', 'col5']
+
+        while game.remaining_moves > 0:
+            m = moves.pop(0)
+
+            pcolor = ""
+            if game.current_turn == 'p1':
+                pcolor = game.player1
+            else:
+                pcolor = game.player2
+            added_pos = game.add_move(m, pcolor)
+            game.check_winner(added_pos)
+            game.switch_turn()
+
+        p1_valid_status = game.validate_move('col1', 'p1')
+        self.assertEqual(p1_valid_status[1], "Tie game")
+
+        game.switch_turn()
+        p2_valid_status = game.validate_move('col2', 'p2')
+        self.assertEqual(p2_valid_status[1], "Tie game")
             
 
 

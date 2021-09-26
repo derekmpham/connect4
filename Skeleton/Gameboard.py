@@ -14,6 +14,16 @@ class Gameboard():
         c = [r[i] for r in self.board]
         is_invalid = False
         err_message = None
+        if len(self.game_result) > 0:
+            is_invalid = True
+            err_message = "Winner already declared"
+            return (is_invalid, err_message)
+
+        if self.remaining_moves == 0:
+            is_invalid = True
+            err_message = "Tie game"
+            return (is_invalid, err_message)
+            
         if 0 not in c:
             is_invalid = True
             err_message = "Column filled"
@@ -22,11 +32,6 @@ class Gameboard():
         if curr_turn != self.current_turn:
             is_invalid = True
             err_message = "Not your turn"
-            return (is_invalid, err_message)
-
-        if len(self.game_result) > 0:
-            is_invalid = True
-            err_message = "Winner already declared"
             return (is_invalid, err_message)
 
         return (is_invalid, err_message)
