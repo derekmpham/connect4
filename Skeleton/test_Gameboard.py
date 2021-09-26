@@ -151,6 +151,31 @@ class Test_TestGameboard(unittest.TestCase):
         game.switch_turn()
         p2_valid_status = game.validate_move('col2', 'p2')
         self.assertEqual(p2_valid_status[1], "Tie game")
+
+    def test_invalid_col_filled(self):
+        # Checks that player cannot make move when column filled
+        game = Gameboard()
+        game.player1 = "red"
+        game.player2 = "yellow"
+        moves = ['col1']*6
+
+        while len(moves) > 0:
+            m = moves.pop()
+
+            pcolor = ""
+            if game.current_turn == 'p1':
+                pcolor = game.player1
+            else:
+                pcolor = game.player2
+            added_pos = game.add_move(m, pcolor)
+            game.switch_turn()
+
+        p1_valid_status = game.validate_move('col1', 'p1')
+        self.assertEqual(p1_valid_status[1], "Column filled")
+
+        game.switch_turn()
+        p2_valid_status = game.validate_move('col1', 'p2')
+        self.assertEqual(p2_valid_status[1], "Column filled")
             
 
 
