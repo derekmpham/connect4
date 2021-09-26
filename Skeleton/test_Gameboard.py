@@ -47,6 +47,22 @@ class Test_TestGameboard(unittest.TestCase):
             self.assertEqual(game.game_result, "")
             game.switch_turn()
 
+    def test_invalid_move_turn(self):
+        # Checks that player cannot make a move when it is not his/her turn
+        game = Gameboard()
+        game.player1 = "red"
+        game.player2 = "yellow"
+        
+        p2_valid_status = game.validate_move('col1', 'p2')
+        self.assertEqual(p2_valid_status[1], "Not your turn")
+
+        p1_m = 'col1'
+        added_pos = game.add_move(p1_m, game.player1)
+        game.switch_turn()
+
+        p1_valid_status = game.validate_move('col1', 'p1')
+        self.assertEqual(p1_valid_status[1], "Not your turn")
+
 
 if __name__ == '__main__':
     unittest.main()
