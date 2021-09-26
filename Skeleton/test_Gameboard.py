@@ -176,6 +176,43 @@ class Test_TestGameboard(unittest.TestCase):
         game.switch_turn()
         p2_valid_status = game.validate_move('col1', 'p2')
         self.assertEqual(p2_valid_status[1], "Column filled")
+
+    def test_winning_move_horizontal(self):
+        # Checks if there is a winning move in horizontal direction
+        self.assertEqual("TODO", "TODO")
+
+    def test_winning_move_vertical(self):
+        # Checks if there is a winning move in vertical direction
+        game = Gameboard()
+        game.player1 = "red"
+        game.player2 = "yellow"
+
+        p1_m, p2_m = 'col1', 'col2'
+        while len(game.game_result) == 0:
+            m = ''
+            pcolor = ""
+            if game.current_turn == 'p1':
+                m = p1_m
+                pcolor = game.player1
+            else:
+                m = p2_m
+                pcolor = game.player2
+            p_valid_status = game.validate_move(m, game.current_turn)
+            self.assertFalse(p_valid_status[0])
+            
+            added_pos = game.add_move(m, pcolor)
+            game.check_winner(added_pos)
+            game.switch_turn()
+
+        self.assertEqual(game.game_result, 'p1')
+
+    def test_winning_move_pos_diagonal(self):
+        # Checks if there is a winning move in positive slope diagonal direction
+        self.assertEqual("TODO", "TODO")
+
+    def test_winning_move_neg_diagonal(self):
+        # Checks if there is a winning move in negative slope diagonal direction
+        self.assertEqual("TODO", "TODO")
             
 
 
