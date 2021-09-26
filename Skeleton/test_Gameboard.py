@@ -47,7 +47,7 @@ class Test_TestGameboard(unittest.TestCase):
             self.assertEqual(game.game_result, "")
             game.switch_turn()
 
-    def test_invalid_move_turn_simple(self):
+    def test_invalid_not_player_turn_simple(self):
         # Checks that player cannot make a move when it is not his/her turn
         game = Gameboard()
         game.player1 = "red"
@@ -63,7 +63,7 @@ class Test_TestGameboard(unittest.TestCase):
         p1_valid_status = game.validate_move('col1', 'p1')
         self.assertEqual(p1_valid_status[1], "Not your turn")
 
-    def test_invalid_move_turn_complex(self):
+    def test_invalid_not_player_turn_complex(self):
         # Checks that for every turn (42 total turns) player cannot make
         # move when it is not his/her turn
         game = Gameboard()
@@ -93,6 +93,35 @@ class Test_TestGameboard(unittest.TestCase):
 
             added_pos = game.add_move(m, pcolor)
             game.switch_turn()
+
+    def test_invalid_winner_declared(self):
+        # Checks that player cannot make move when winner already declared
+        game = Gameboard()
+        game.player1 = "red"
+        game.player2 = "yellow"
+
+        p1_m, p2_m = 'col1', 'col2'
+        while len(game.game_result) == 0:
+            m = ''
+            pcolor = ""
+            if game.current_turn == 'p1':
+                m = p1_m
+                pcolor = game.player1
+            else:
+                m = p2_m
+                pcolor = game.player2
+            added_pos = game.add_move(m, pcolor)
+            game.check_winner(added_pos)
+            game.switch_turn()
+
+        p2_valid_status = game.validate_move(p2_m, 'p2')
+        self.assertEqual(p2_valid_status[1], "Winner already declared")
+
+        game.switch_turn()
+        p1_valid_status = game.validate_move(p1_m, 'p1')
+        self.assertEqual(p1_valid_status[1], "Winner already declared")
+            
+
 
 
 if __name__ == '__main__':

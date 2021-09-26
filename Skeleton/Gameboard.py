@@ -24,6 +24,11 @@ class Gameboard():
             err_message = "Not your turn"
             return (is_invalid, err_message)
 
+        if len(self.game_result) > 0:
+            is_invalid = True
+            err_message = "Winner already declared"
+            return (is_invalid, err_message)
+
         return (is_invalid, err_message)
 
     def add_move(self, col, pcolor):
