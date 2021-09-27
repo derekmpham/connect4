@@ -1,5 +1,6 @@
 import db
 
+
 class Gameboard():
     def __init__(self):
         self.player1 = ""
@@ -23,7 +24,7 @@ class Gameboard():
             is_invalid = True
             err_message = "Tie game"
             return (is_invalid, err_message)
-            
+
         if 0 not in c:
             is_invalid = True
             err_message = "Column filled"
@@ -50,27 +51,39 @@ class Gameboard():
 
         # Check horizontally
         for i in range(len(self.board[r])-3):
-            if self.board[r][i] == pcolor and self.board[r][i+1] == pcolor and self.board[r][i+2] == pcolor and self.board[r][i+3] == pcolor:
+            if (self.board[r][i] == pcolor and
+                self.board[r][i+1] == pcolor and
+                self.board[r][i+2] == pcolor and
+                    self.board[r][i+3] == pcolor):
                 self.game_result = self.current_turn
                 return
 
         # Check vertically
         for i in range(len(self.board)-3):
-            if self.board[i][c] == pcolor and self.board[i+1][c] == pcolor and self.board[i+2][c] == pcolor and self.board[i+3][c] == pcolor:
+            if (self.board[i][c] == pcolor and
+                self.board[i+1][c] == pcolor and
+                self.board[i+2][c] == pcolor and
+                    self.board[i+3][c] == pcolor):
                 self.game_result = self.current_turn
                 return
 
         # Check left diagonal
         for i in range(len(self.board)-3):
             for j in range(len(self.board[r])-3):
-                if self.board[i][j] == pcolor and self.board[i+1][j+1] == pcolor and self.board[i+2][j+2] == pcolor and self.board[i+3][j+3] == pcolor:
+                if (self.board[i][j] == pcolor and
+                    self.board[i+1][j+1] == pcolor and
+                    self.board[i+2][j+2] == pcolor and
+                        self.board[i+3][j+3] == pcolor):
                     self.game_result = self.current_turn
                     return
 
         # Check right diagonal
         for i in range(len(self.board)-3):
             for j in range(len(self.board[r])-1, len(self.board[r])-1-4, -1):
-                if self.board[i][j] == pcolor and self.board[i+1][j-1] == pcolor and self.board[i+2][j-2] == pcolor and self.board[i+3][j-3] == pcolor:
+                if (self.board[i][j] == pcolor and
+                    self.board[i+1][j-1] == pcolor and
+                    self.board[i+2][j-2] == pcolor and
+                        self.board[i+3][j-3] == pcolor):
                     self.game_result = self.current_turn
                     return
 
@@ -81,11 +94,6 @@ class Gameboard():
             self.current_turn = 'p1'
 
 
-    
-
 '''
 Add Helper functions as needed to handle moves and update board and turns
 '''
-
-
-    

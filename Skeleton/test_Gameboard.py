@@ -1,6 +1,7 @@
 import unittest
 from Gameboard import Gameboard
 
+
 class Test_TestGameboard(unittest.TestCase):
     def test_correct_move_simple(self):
         # Checks single correct move for each player
@@ -11,7 +12,7 @@ class Test_TestGameboard(unittest.TestCase):
         p1_m = 'col1'
         p1_valid_status = game.validate_move(p1_m, game.current_turn)
         self.assertFalse(p1_valid_status[0])
-        
+
         added_pos = game.add_move(p1_m, game.player1)
         game.check_winner(added_pos)
         game.switch_turn()
@@ -22,16 +23,18 @@ class Test_TestGameboard(unittest.TestCase):
 
     def test_correct_moves_complex(self):
         # Checks for all correct moves in a tie board
-        moves = ['col1', 'col2', 'col3', 'col4', 'col5', 'col6', 'col7',
-                'col2', 'col1', 'col1', 'col2', 'col2', 'col1', 'col1',
-                'col2', 'col1', 'col2', 'col6', 'col3', 'col3', 'col3',
-                'col3', 'col4', 'col4', 'col4', 'col4', 'col5', 'col5',
-                'col5', 'col5', 'col4', 'col3', 'col7', 'col7', 'col7',
-                'col7', 'col6', 'col6', 'col6', 'col7', 'col6', 'col5']
+        moves = [
+            'col1', 'col2', 'col3', 'col4', 'col5', 'col6', 'col7',
+            'col2', 'col1', 'col1', 'col2', 'col2', 'col1', 'col1',
+            'col2', 'col1', 'col2', 'col6', 'col3', 'col3', 'col3',
+            'col3', 'col4', 'col4', 'col4', 'col4', 'col5', 'col5',
+            'col5', 'col5', 'col4', 'col3', 'col7', 'col7', 'col7',
+            'col7', 'col6', 'col6', 'col6', 'col7', 'col6', 'col5'
+            ]
         game = Gameboard()
         game.player1 = "red"
         game.player2 = "yellow"
-        
+
         while game.remaining_moves > 0:
             m = moves.pop(0)
             p_valid_status = game.validate_move(m, game.current_turn)
@@ -52,12 +55,12 @@ class Test_TestGameboard(unittest.TestCase):
         game = Gameboard()
         game.player1 = "red"
         game.player2 = "yellow"
-        
+
         p2_valid_status = game.validate_move('col1', 'p2')
         self.assertEqual(p2_valid_status[1], "Not your turn")
 
         p1_m = 'col1'
-        added_pos = game.add_move(p1_m, game.player1)
+        game.add_move(p1_m, game.player1)
         game.switch_turn()
 
         p1_valid_status = game.validate_move('col1', 'p1')
@@ -69,16 +72,18 @@ class Test_TestGameboard(unittest.TestCase):
         game = Gameboard()
         game.player1 = "red"
         game.player2 = "yellow"
-        moves = ['col1', 'col2', 'col3', 'col4', 'col5', 'col6', 'col7',
-                'col2', 'col1', 'col1', 'col2', 'col2', 'col1', 'col1',
-                'col2', 'col1', 'col2', 'col6', 'col3', 'col3', 'col3',
-                'col3', 'col4', 'col4', 'col4', 'col4', 'col5', 'col5',
-                'col5', 'col5', 'col4', 'col3', 'col7', 'col7', 'col7',
-                'col7', 'col6', 'col6', 'col6', 'col7', 'col6', 'col5']
-        
+        moves = [
+            'col1', 'col2', 'col3', 'col4', 'col5', 'col6', 'col7',
+            'col2', 'col1', 'col1', 'col2', 'col2', 'col1', 'col1',
+            'col2', 'col1', 'col2', 'col6', 'col3', 'col3', 'col3',
+            'col3', 'col4', 'col4', 'col4', 'col4', 'col5', 'col5',
+            'col5', 'col5', 'col4', 'col3', 'col7', 'col7', 'col7',
+            'col7', 'col6', 'col6', 'col6', 'col7', 'col6', 'col5'
+            ]
+
         while game.remaining_moves > 0:
             m = moves.pop(0)
-            
+
             pcolor = ""
             wrong_person = ''
             if game.current_turn == 'p1':
@@ -91,7 +96,7 @@ class Test_TestGameboard(unittest.TestCase):
             p_valid_status = game.validate_move(m, wrong_person)
             self.assertEqual(p_valid_status[1], "Not your turn")
 
-            added_pos = game.add_move(m, pcolor)
+            game.add_move(m, pcolor)
             game.switch_turn()
 
     def test_invalid_winner_declared(self):
@@ -126,12 +131,14 @@ class Test_TestGameboard(unittest.TestCase):
         game = Gameboard()
         game.player1 = "red"
         game.player2 = "yellow"
-        moves = ['col1', 'col2', 'col3', 'col4', 'col5', 'col6', 'col7',
-                'col2', 'col1', 'col1', 'col2', 'col2', 'col1', 'col1',
-                'col2', 'col1', 'col2', 'col6', 'col3', 'col3', 'col3',
-                'col3', 'col4', 'col4', 'col4', 'col4', 'col5', 'col5',
-                'col5', 'col5', 'col4', 'col3', 'col7', 'col7', 'col7',
-                'col7', 'col6', 'col6', 'col6', 'col7', 'col6', 'col5']
+        moves = [
+            'col1', 'col2', 'col3', 'col4', 'col5', 'col6', 'col7',
+            'col2', 'col1', 'col1', 'col2', 'col2', 'col1', 'col1',
+            'col2', 'col1', 'col2', 'col6', 'col3', 'col3', 'col3',
+            'col3', 'col4', 'col4', 'col4', 'col4', 'col5', 'col5',
+            'col5', 'col5', 'col4', 'col3', 'col7', 'col7', 'col7',
+            'col7', 'col6', 'col6', 'col6', 'col7', 'col6', 'col5'
+            ]
 
         while game.remaining_moves > 0:
             m = moves.pop(0)
@@ -167,7 +174,7 @@ class Test_TestGameboard(unittest.TestCase):
                 pcolor = game.player1
             else:
                 pcolor = game.player2
-            added_pos = game.add_move(m, pcolor)
+            game.add_move(m, pcolor)
             game.switch_turn()
 
         p1_valid_status = game.validate_move('col1', 'p1')
@@ -193,7 +200,7 @@ class Test_TestGameboard(unittest.TestCase):
                 pcolor = game.player2
             p_valid_status = game.validate_move(m, game.current_turn)
             self.assertFalse(p_valid_status[0])
-            
+
             added_pos = game.add_move(m, pcolor)
             game.check_winner(added_pos)
             game.switch_turn()
@@ -218,7 +225,7 @@ class Test_TestGameboard(unittest.TestCase):
                 pcolor = game.player2
             p_valid_status = game.validate_move(m, game.current_turn)
             self.assertFalse(p_valid_status[0])
-            
+
             added_pos = game.add_move(m, pcolor)
             game.check_winner(added_pos)
             game.switch_turn()
@@ -226,13 +233,16 @@ class Test_TestGameboard(unittest.TestCase):
         self.assertEqual(game.game_result, 'p1')
 
     def test_winning_move_pos_diagonal(self):
-        # Checks if there is a winning move in positive slope diagonal direction
+        # Checks if there is a winning move in
+        # positive slope diagonal direction
         game = Gameboard()
         game.player1 = "red"
         game.player2 = "yellow"
-        moves = ['col1', 'col2', 'col2', 'col3', 'col4', 'col3', 'col3',
-                'col4', 'col1', 'col4', 'col4']
-        
+        moves = [
+            'col1', 'col2', 'col2', 'col3', 'col4', 'col3', 'col3',
+            'col4', 'col1', 'col4', 'col4'
+            ]
+
         while len(game.game_result) == 0:
             m = moves.pop(0)
             pcolor = ""
@@ -242,22 +252,24 @@ class Test_TestGameboard(unittest.TestCase):
                 pcolor = game.player2
             p_valid_status = game.validate_move(m, game.current_turn)
             self.assertFalse(p_valid_status[0])
-            
+
             added_pos = game.add_move(m, pcolor)
             game.check_winner(added_pos)
             game.switch_turn()
 
         self.assertEqual(game.game_result, 'p1')
-
 
     def test_winning_move_neg_diagonal(self):
-        # Checks if there is a winning move in negative slope diagonal direction
+        # Checks if there is a winning move in
+        # negative slope diagonal direction
         game = Gameboard()
         game.player1 = "red"
         game.player2 = "yellow"
-        moves = ['col7', 'col6', 'col6', 'col5', 'col4', 'col5', 'col5',
-                'col4', 'col7', 'col4', 'col4']
-        
+        moves = [
+            'col7', 'col6', 'col6', 'col5', 'col4', 'col5', 'col5',
+            'col4', 'col7', 'col4', 'col4'
+            ]
+
         while len(game.game_result) == 0:
             m = moves.pop(0)
             pcolor = ""
@@ -267,14 +279,12 @@ class Test_TestGameboard(unittest.TestCase):
                 pcolor = game.player2
             p_valid_status = game.validate_move(m, game.current_turn)
             self.assertFalse(p_valid_status[0])
-            
+
             added_pos = game.add_move(m, pcolor)
             game.check_winner(added_pos)
             game.switch_turn()
 
         self.assertEqual(game.game_result, 'p1')
-            
-
 
 
 if __name__ == '__main__':

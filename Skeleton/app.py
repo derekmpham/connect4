@@ -102,13 +102,19 @@ def p1_move():
     valid_status = game.validate_move(m1['column'], 'p1')
     is_invalid = valid_status[0]
     if is_invalid:
-        return jsonify(move=game.board, invalid=is_invalid, reason=valid_status[1], winner=game.game_result)
+        return jsonify(
+            move=game.board, invalid=is_invalid,
+            reason=valid_status[1], winner=game.game_result
+            )
     else:
         added_pos = game.add_move(m1['column'], game.player1)
         game.check_winner(added_pos)
         game.switch_turn()
-        return jsonify(move=game.board, invalid=is_invalid, winner=game.game_result)
-    
+        return jsonify(
+            move=game.board, invalid=is_invalid,
+            winner=game.game_result
+            )
+
 
 '''
 Same as '/move1' but instead proccess Player 2
@@ -124,13 +130,18 @@ def p2_move():
     valid_status = game.validate_move(m2['column'], 'p2')
     is_invalid = valid_status[0]
     if is_invalid:
-        return jsonify(move=game.board, invalid=is_invalid, reason=valid_status[1], winner=game.game_result)
+        return jsonify(
+            move=game.board, invalid=is_invalid,
+            reason=valid_status[1], winner=game.game_result
+            )
     else:
         added_pos = game.add_move(m2['column'], game.player2)
         game.check_winner(added_pos)
         game.switch_turn()
-        return jsonify(move=game.board, invalid=is_invalid, winner=game.game_result)
-
+        return jsonify(
+            move=game.board, invalid=is_invalid,
+            winner=game.game_result
+            )
 
 
 if __name__ == '__main__':
