@@ -61,15 +61,15 @@ class Gameboard():
                 return
 
         # Check left diagonal
-        for i in range(len(self.board[r])-3):
-            for j in range(len(self.board)-3):
+        for i in range(len(self.board)-3):
+            for j in range(len(self.board[r])-3):
                 if self.board[i][j] == pcolor and self.board[i+1][j+1] == pcolor and self.board[i+2][j+2] == pcolor and self.board[i+3][j+3] == pcolor:
                     self.game_result = self.current_turn
                     return
 
         # Check right diagonal
-        for i in range(len(self.board[r])-3):
-            for j in range(3, len(self.board)):
+        for i in range(len(self.board)-3):
+            for j in range(len(self.board[r])-1, len(self.board[r])-1-4, -1):
                 if self.board[i][j] == pcolor and self.board[i+1][j-1] == pcolor and self.board[i+2][j-2] == pcolor and self.board[i+3][j-3] == pcolor:
                     self.game_result = self.current_turn
                     return
