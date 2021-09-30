@@ -10,7 +10,7 @@ import logging
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
-game = None
+game = Gameboard()
 
 '''
 Implement '/' endpoint
@@ -52,7 +52,6 @@ Assign player1 their color
 @app.route('/p1Color', methods=['GET'])
 def player1_config():
     color = request.args.get('color')
-    global game
     game.player1 = color
     return render_template('player1_connect.html', status=color)
 
@@ -69,7 +68,6 @@ Assign player2 their color
 
 @app.route('/p2Join', methods=['GET'])
 def p2Join():
-    global game
     color = ""
     if game.player1 == "red":
         color = "yellow"
@@ -96,9 +94,6 @@ Process Player 1's move
 @app.route('/move1', methods=['POST'])
 def p1_move():
     m1 = request.get_json()
-    global game
-    if len(game.game_result) > 0:
-        return
     valid_status = game.validate_move(m1['column'], 'p1')
     is_invalid = valid_status[0]
     if is_invalid:
@@ -124,9 +119,6 @@ Same as '/move1' but instead proccess Player 2
 @app.route('/move2', methods=['POST'])
 def p2_move():
     m2 = request.get_json()
-    global game
-    if len(game.game_result) > 0:
-        return
     valid_status = game.validate_move(m2['column'], 'p2')
     is_invalid = valid_status[0]
     if is_invalid:
