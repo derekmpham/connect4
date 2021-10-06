@@ -24,6 +24,7 @@ Initial Webpage where gameboard is initialized
 def player1_connect():
     global game
     game = Gameboard()
+    db.init_db()
     return render_template('player1_connect.html', status='Pick a Color.')
 
 
@@ -51,9 +52,15 @@ Assign player1 their color
 
 @app.route('/p1Color', methods=['GET'])
 def player1_config():
-    color = request.args.get('color')
-    game.player1 = color
-    return render_template('player1_connect.html', status=color)
+    s = db.getMove()
+    if s is None:
+        color = request.args.get('color')
+        game.player1 = color
+        db.add_move((game.current_turn, str(game.board), game.game_result, game.player1, game.player2, game.remaining_moves))
+        return render_template('player1_connect.html', status=color)
+    # color = request.args.get('color')
+    # game.player1 = color
+    return render_template('player1_connect.html', status=s[3])
 
 
 '''
@@ -76,6 +83,7 @@ def p2Join():
     else:
         color = "Error"
     game.player2 = color
+    # db.add_move((game.current_turn, str(game.board), game.game_result, game.player1, game.player2, game.remaining_moves))
     return render_template('p2Join.html', status=color)
 
 
@@ -105,6 +113,7 @@ def p1_move():
         added_pos = game.add_move(m1['column'], game.player1)
         game.check_winner(added_pos)
         game.switch_turn()
+        # db.add_move((game.current_turn, str(game.board), game.game_result, game.player1, game.player2, game.remaining_moves))
         return jsonify(
             move=game.board, invalid=is_invalid,
             winner=game.game_result
@@ -130,6 +139,7 @@ def p2_move():
         added_pos = game.add_move(m2['column'], game.player2)
         game.check_winner(added_pos)
         game.switch_turn()
+        # db.add_move((game.current_turn, str(game.board), game.game_result, game.player1, game.player2, game.remaining_moves))
         return jsonify(
             move=game.board, invalid=is_invalid,
             winner=game.game_result
