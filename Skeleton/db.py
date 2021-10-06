@@ -55,7 +55,21 @@ return (current_turn, board, winner, player1, player2, remaining_moves)
 def getMove():
     # will return tuple(current_turn, board, winner, player1, player2,
     # remaining_moves) or None if db fails
-    pass
+    conn = None
+    last_move = None
+    try:
+        conn = sqlite3.connect('sqlite_db')
+        conn.execute('SELECT * FROM GAME ORDER BY id DESC LIMIT 1')
+        last_move = conn.fetchone()
+        print(last_move)
+    except Error as e:
+        print(e)
+
+    finally:
+        if conn:
+            conn.close()
+            return last_move
+        return None
 
 
 '''
