@@ -32,7 +32,18 @@ Insert Tuple into table
 
 
 def add_move(move):  # will take in a tuple
-    pass
+    conn = None
+    try:
+        conn = sqlite3.connect('sqlite_db')
+        conn.execute('INSERT INTO GAME VALUES (?, ?, ?, ?, ?, ?)',
+                        move)
+        print('Table updated')
+    except Error as e:
+        print(e)
+
+    finally:
+        if conn:
+            conn.close()
 
 
 '''
