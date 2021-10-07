@@ -35,8 +35,11 @@ def add_move(move):  # will take in a tuple
     conn = None
     try:
         conn = sqlite3.connect('sqlite_db')
-        conn.execute('INSERT INTO GAME VALUES (?, ?, ?, ?, ?, ?)',
+        cur = conn.cursor()
+        cur.execute('INSERT INTO GAME VALUES (?, ?, ?, ?, ?, ?)',
                         move)
+        conn.commit()
+
         print('Table updated')
     except Error as e:
         print(e)
@@ -59,18 +62,16 @@ def getMove():
     last_move = None
     try:
         conn = sqlite3.connect('sqlite_db')
-        conn.execute('SELECT * FROM GAME ORDER BY ROWID DESC LIMIT 1') # THIS MUST BE WRONG!!!
-        last_move = conn.fetchone()
-        print("ALSKDJF LKAJDF OERGKNALKDJ")
-        print("LAST MOVE 1: ", last_move)
+        cur = conn.cursor()
+        cur.execute('SELECT * FROM GAME ORDER BY ROWID DESC LIMIT 1')
+        last_move = cur.fetchone()
+        print("LAST MOVE: ", last_move)
     except Error as e:
         print(e)
 
     finally:
         if conn:
-            print("CONNECTED")
             conn.close()
-            print("LAST MOVE 2: ", last_move)
             return last_move
         return None
 

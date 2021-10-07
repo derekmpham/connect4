@@ -55,14 +55,12 @@ Assign player1 their color
 def player1_config():
     s = db.getMove()
     if s is None:
-        print("ASDFASDFASDFADSF")
         color = request.args.get('color')
         game.player1 = color
         db.add_move((game.current_turn, str(game.board), game.game_result, game.player1, game.player2, game.remaining_moves))
         return render_template('player1_connect.html', status=color)
     # color = request.args.get('color')
     # game.player1 = color
-    print("PLOK", s[3])
     return render_template('player1_connect.html', status=s[3])
 
 
@@ -79,7 +77,7 @@ Assign player2 their color
 @app.route('/p2Join', methods=['GET'])
 def p2Join():
     s = db.getMove()
-    if s is None:
+    if len(s[4]) == 0:
         color = ""
         if game.player1 == "red":
             color = "yellow"
