@@ -59,15 +59,18 @@ def getMove():
     last_move = None
     try:
         conn = sqlite3.connect('sqlite_db')
-        conn.execute('SELECT * FROM GAME ORDER BY id DESC LIMIT 1')
+        conn.execute('SELECT * FROM GAME ORDER BY ROWID LIMIT 1') # THIS MUST BE WRONG!!!
         last_move = conn.fetchone()
-        print(last_move)
+        print("ALSKDJF LKAJDF OERGKNALKDJ")
+        print("LAST MOVE 1: ", last_move)
     except Error as e:
         print(e)
 
     finally:
         if conn:
+            print("CONNECTED")
             conn.close()
+            print("LAST MOVE 2: ", last_move)
             return last_move
         return None
 
