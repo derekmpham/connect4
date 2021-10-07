@@ -59,7 +59,7 @@ def getMove():
     last_move = None
     try:
         conn = sqlite3.connect('sqlite_db')
-        conn.execute('SELECT * FROM GAME ORDER BY ROWID LIMIT 1') # THIS MUST BE WRONG!!!
+        conn.execute('SELECT * FROM GAME ORDER BY ROWID DESC LIMIT 1') # THIS MUST BE WRONG!!!
         last_move = conn.fetchone()
         print("ALSKDJF LKAJDF OERGKNALKDJ")
         print("LAST MOVE 1: ", last_move)
