@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, jsonify
 from json import dump
 from Gameboard import Gameboard
 import db
+from ast import literal_eval
 
 
 app = Flask(__name__)
@@ -54,13 +55,13 @@ Assign player1 their color
 @app.route('/p1Color', methods=['GET'])
 def player1_config():
     s = db.getMove()
-    print(s)  # DATABASE IS SAVED AFTER EXITING FLASK...BUT WHY CAN'T WE RESTORE THE BOARD ON THE FRONTEND???
     if s is None:
         color = request.args.get('color')
         game.player1 = color
         db.add_move((game.current_turn, str(game.board), game.game_result, game.player1, game.player2, game.remaining_moves))
         return render_template('player1_connect.html', status=color)
-    return render_template('player1_connect.html', status=s[3])
+    game.reinit(s[0], literal_eval(s[1]), s[2], s[3], s[4], s[5])
+    return render_template('player1_connect.html', status=game.player1)
 
 
 '''
@@ -87,7 +88,8 @@ def p2Join():
         game.player2 = color
         db.add_move((game.current_turn, str(game.board), game.game_result, game.player1, game.player2, game.remaining_moves))
         return render_template('p2Join.html', status=color)
-    return render_template('p2Join.html', status=s[4])
+    game.reinit(s[0], literal_eval(s[1]), s[2], s[3], s[4], s[5])
+    return render_template('p2Join.html', status=game.player2)
 
 
 '''

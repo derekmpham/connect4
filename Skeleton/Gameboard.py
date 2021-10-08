@@ -93,6 +93,14 @@ class Gameboard():
         else:
             self.current_turn = 'p1'
 
+    def reinit(self, curr_turn, brd, winner, p1, p2, rm):
+        self.player1 = p1
+        self.player2 = p2
+        self.board = brd
+        self.game_result = winner
+        self.current_turn = curr_turn
+        self.remaining_moves = rm
+
 
 '''
 Add Helper functions as needed to handle moves and update board and turns

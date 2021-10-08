@@ -65,7 +65,6 @@ def getMove():
         cur = conn.cursor()
         cur.execute('SELECT * FROM GAME ORDER BY ROWID DESC')
         last_move = cur.fetchone()
-        print("LAST MOVE: ", last_move)
     except Error as e:
         print(e)
 
