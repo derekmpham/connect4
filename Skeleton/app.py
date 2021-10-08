@@ -54,13 +54,12 @@ Assign player1 their color
 @app.route('/p1Color', methods=['GET'])
 def player1_config():
     s = db.getMove()
+    print(s)  # DATABASE IS SAVED AFTER EXITING FLASK...BUT WHY CAN'T WE RESTORE THE BOARD ON THE FRONTEND???
     if s is None:
         color = request.args.get('color')
         game.player1 = color
         db.add_move((game.current_turn, str(game.board), game.game_result, game.player1, game.player2, game.remaining_moves))
         return render_template('player1_connect.html', status=color)
-    # color = request.args.get('color')
-    # game.player1 = color
     return render_template('player1_connect.html', status=s[3])
 
 
@@ -88,7 +87,6 @@ def p2Join():
         game.player2 = color
         db.add_move((game.current_turn, str(game.board), game.game_result, game.player1, game.player2, game.remaining_moves))
         return render_template('p2Join.html', status=color)
-    # db.add_move((game.current_turn, str(game.board), game.game_result, game.player1, game.player2, game.remaining_moves))
     return render_template('p2Join.html', status=s[4])
 
 
