@@ -1,5 +1,5 @@
+./test_db.py:44:80: E501 line too long (172 > 79 characters)
 ./Gameboard.py:1:1: F401 'db' imported but unused
 ./app.py:1:1: F401 'flask.redirect' imported but unused
 ./app.py:2:1: F401 'json.dump' imported but unused
-./app.py:4:1: F401 'db' imported but unused
-./app.py:9:1: E402 module level import not at top of file
+./app.py:10:1: E402 module level import not at top of file

@@ -9,7 +9,13 @@ class Test_Testdb(unittest.TestCase):
         db.clear()
         db.init_db()
         p1m_ct = 'p2'
-        p1m_b = str([[0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], ['red', 0, 0, 0, 0, 0, 0]])
+        p1m_b = str(
+            [
+                [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0], ['red', 0, 0, 0, 0, 0, 0]
+                ]
+            )
         gr = ""
         p1, p2 = "red", "yellow"
         rm = 41
@@ -19,7 +25,13 @@ class Test_Testdb(unittest.TestCase):
         self.assertEqual(s1, p1_m)
 
         p2m_ct = 'p1'
-        p2m_b = str([[0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], ['red', 'yellow', 0, 0, 0, 0, 0]])
+        p2m_b = str(
+            [
+                [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0], ['red', 'yellow', 0, 0, 0, 0, 0]
+                ]
+            )
         rm = 40
         p2_m = (p2m_ct, p2m_b, gr, p1, p2, rm)
         db.add_move(p2_m)
@@ -42,8 +54,6 @@ class Test_Testdb(unittest.TestCase):
         db.clear()
         s = db.getMove()
         self.assertEqual(s, None)
-
-
 
 
 if __name__ == '__main__':

@@ -36,8 +36,10 @@ def add_move(move):  # will take in a tuple
     try:
         conn = sqlite3.connect('sqlite_db')
         cur = conn.cursor()
-        cur.execute('INSERT INTO GAME VALUES (?, ?, ?, ?, ?, ?)',
-                        move)
+        cur.execute(
+            'INSERT INTO GAME VALUES (?, ?, ?, ?, ?, ?)',
+            move
+            )
         conn.commit()
         print('Table updated')
     except Error as e:
