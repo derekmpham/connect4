@@ -16,6 +16,6 @@ individual project for Fall 2021
 
 ## Part 3
 
-### [Testing](https://www.youtube.com/watch?v=-R_VTBkSo6o)
+### [Database](https://www.youtube.com/watch?v=-R_VTBkSo6o)
 
 #### Outputs from testing and bug checker tools in `a3_default_coverage` and `a3_branch_coverage` within `Skeleton` directory
