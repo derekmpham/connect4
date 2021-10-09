@@ -12,3 +12,10 @@ individual project for Fall 2021
 ### [Testing](https://www.youtube.com/watch?v=dRRbPBsTIUc)
 
 #### Outputs from testing and bug checker tools in `default_coverage`, `branch_coverage`, and `bugs.txt` within `Skeleton` directory
+
+
+## Part 3
+
+### [Testing](https://www.youtube.com/watch?v=-R_VTBkSo6o)
+
+#### Outputs from testing and bug checker tools in `a3_default_coverage` and `a3_branch_coverage` within `Skeleton` directory

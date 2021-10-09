@@ -73,7 +73,6 @@ def getMove():
         if conn:
             conn.close()
             return last_move
-        return None
 
 
 '''
